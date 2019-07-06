@@ -44,8 +44,7 @@ class Cell
       return "M"
     else empty? && @fired_upon == false
       return "."
-
-
     end
   end
-end
+end 
+
