@@ -66,6 +66,7 @@ class BoardTest < Minitest::Test
 
     refute @board.validate_ships_consecutive_for_submarine?(@submarine, ["A1","C1"])
     refute @board.validate_ships_consecutive_for_cruiser?(@cruiser, ["A1", "A2", "A4"])
+    refute @board.validate_ships_consecutive_for_cruiser?(@cruiser, ["A1", "A2", "C1"])
 
     refute @board.valid_placement?(@submarine, ["A1","C1"])
     refute @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])

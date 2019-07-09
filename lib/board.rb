@@ -89,17 +89,23 @@ class Board
 
 
   def validate_ships_consecutive_for_cruiser?(ship, coordinate_array)
-    total_ord_value_first_element = 0
-    total_ord_value_second_element = 0
-    total_ord_value_third_element = 0
+    total_ord_value_element_1_character_1 = 0
+    total_ord_value_element_1_character_2 = 0
+    total_ord_value_element_2_character_1 = 0
+    total_ord_value_element_2_character_2 = 0
+    total_ord_value_element_3_character_1 = 0
+    total_ord_value_element_3_character_2 = 0
     coordinate_array.each_cons(3) do |coordinate_pair|
-      # require 'pry';binding.pry
-      total_ord_value_first_element += (coordinate_pair.first[0].ord + coordinate_pair.first[1].ord)
-      total_ord_value_second_element += (coordinate_pair[1][0].ord + coordinate_pair[1][1].ord)
-      total_ord_value_third_element += (coordinate_pair[2][0].ord + coordinate_pair[2][1].ord)
-    end
-      # require 'pry';binding.pry
-    if total_ord_value_first_element == total_ord_value_second_element +-1 && total_ord_value_first_element == total_ord_value_third_element +-2
+      total_ord_value_element_1_character_1 += coordinate_pair.first[0].ord
+      total_ord_value_element_1_character_2 += coordinate_pair.first[1].ord
+      total_ord_value_element_2_character_1 += coordinate_pair[1][0].ord
+      total_ord_value_element_2_character_2 += coordinate_pair[1][1].ord
+      total_ord_value_element_3_character_1 += coordinate_pair.last[0].ord
+      total_ord_value_element_3_character_2 += coordinate_pair.last[1].ord
+      end
+    if total_ord_value_element_1_character_1 == total_ord_value_element_2_character_1 && total_ord_value_element_1_character_1 == total_ord_value_element_3_character_1 && (total_ord_value_element_1_character_2 + 1) == total_ord_value_element_2_character_2 && (total_ord_value_element_3_character_2 - 1) == total_ord_value_element_2_character_2
+      return true
+    elsif total_ord_value_element_1_character_2 == total_ord_value_element_2_character_2 && total_ord_value_element_1_character_2 == total_ord_value_element_3_character_2 && (total_ord_value_element_1_character_1 +1) == total_ord_value_element_2_character_1 && total_ord_value_element_2_character_1 == (total_ord_value_element_3_character_1 - 1)
       return true
     else
       return false
