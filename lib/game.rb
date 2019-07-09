@@ -68,7 +68,7 @@ class Game
       puts "\n" * 2
 
       while @user_board.valid_placement?(ship, user_input) == false
-        puts "You have given invalid coordinates. Please make sure that the coordinates are consecutive in ascending order \n and are not diagonal. Example: A1 A2 A3 or A1 B2. Please try again."
+        puts "You have given invalid coordinates. Please make sure that the coordinates are consecutive in ascending order \n and are not diagonal. Example: A1 A2 A3 or A1 B1. Please try again."
         user_input = gets.chomp.upcase.split(" ")
         puts "\n" * 2
       end
