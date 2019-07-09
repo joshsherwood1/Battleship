@@ -1,4 +1,4 @@
 require './lib/game'
 
-battleship = Game.new
-battleship.start_up
+game_of_battleship_1 = Game.new
+game_of_battleship_1.start_up

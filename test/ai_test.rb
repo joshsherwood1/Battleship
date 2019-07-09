@@ -15,20 +15,14 @@ class AiTest < MiniTest::Test
     @cruiser = Ship.new("Cruiser", 3)
   end
 
-  #TODO:
-
-#tests for validation of existence,
-
   def test_ai_exists
-    skip
-
+    assert_instance_of Ai, @ai
   end
 
   def test_ai_has_a_board_rendered
-
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @ai_board.render
   end
-#has 2 ships by defualt,
+
   def test_ai_has_1_ship
     skip
     @ai.place_cruiser_ai(@ai_board)
@@ -44,12 +38,10 @@ class AiTest < MiniTest::Test
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @ai_board.render(true)
   end
 
-
   def test_that_AI_has_fired
-    skip
-    @ai.fire(@user_board)
+    @ai.fire(@user_board, "C2")
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @user_board.render
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . M . . \nD . . . . \n", @user_board.render
   end
 
   def test_that_AI_has_fired_on_nine_spots
@@ -60,29 +52,13 @@ class AiTest < MiniTest::Test
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @user_board.render
   end
-#has access to hash for targets,
-  def test_it_has_hash_count_of_targets_to_fire_upon
-    skip
-
-  end
-
-#test it can fire 16 times
-  def test_it_can_fire_at_the_hash_coordinate_count_times
-    skip
-
-  end
-#test it can place valid ships randomly
-  def test_it_can_validate_sample_coords_for_ship_placement
-    skip
-  end
 
   def test_it_can_fire_16_times
     16.times do
       @ai.fire(@user_board, @ai.target)
-
     end
-  assert_empty @ai.possible_targets
-  assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @user_board.render
-  end
 
-end #end test
+    assert_empty @ai.possible_targets
+    assert_equal "  1 2 3 4 \nA M M M M \nB M M M M \nC M M M M \nD M M M M \n", @user_board.render
+  end
+end
