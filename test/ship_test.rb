@@ -7,6 +7,7 @@ class ShipTest < Minitest::Test
 
   def setup
     @ship_1 = Ship.new("Cruiser",3)
+    @sub = Ship.new("sub", 2 )
   end
 
   def test_if_ship_exists
