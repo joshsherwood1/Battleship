@@ -119,8 +119,12 @@ class Board
     end
   end
 
-  def render
-    return "  1 2 3 4 \nA #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \nB #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \nC #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \nD #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+  def render(ship_in_cell = false)
+    return "  1 2 3 4 \nA #{@cells["A1"].render(ship_in_cell)} #{@cells["A2"].render(ship_in_cell)} #{@cells["A3"].render(ship_in_cell)} #{@cells["A4"].render(ship_in_cell)} \nB #{@cells["B1"].render(ship_in_cell)} #{@cells["B2"].render(ship_in_cell)} #{@cells["B3"].render(ship_in_cell)} #{@cells["B4"].render(ship_in_cell)} \nC #{@cells["C1"].render(ship_in_cell)} #{@cells["C2"].render(ship_in_cell)} #{@cells["C3"].render(ship_in_cell)} #{@cells["C4"].render(ship_in_cell)} \nD #{@cells["D1"].render(ship_in_cell)} #{@cells["D2"].render(ship_in_cell)} #{@cells["D3"].render(ship_in_cell)} #{@cells["D4"].render(ship_in_cell)} \n"
+  end
+
+  def fire_upon(coordinate)
+    @cells[coordinate].fire_upon
   end
 
 

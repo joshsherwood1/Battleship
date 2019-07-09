@@ -38,7 +38,7 @@ class Cell
       return "X"
     elsif @fired_upon == true && @ship.nil? == false && @ship.health > 0
       return "H"
-    elsif ship_in_cell == true
+    elsif ship_in_cell == true && @ship.nil? == false
       return "S"
     elsif empty? && @fired_upon == true
       return "M"
@@ -46,5 +46,4 @@ class Cell
       return "."
     end
   end
-end 
-
+end

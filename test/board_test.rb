@@ -122,4 +122,55 @@ class BoardTest < Minitest::Test
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
   end
 
+  def test_that_it_renders_plain_board_and_shows_ship
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", @board.render(true)
+  end
+
+  def test_that_it_renders_board_with_a_miss
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.fire_upon("A4")
+
+    assert_equal "  1 2 3 4 \nA . . . M \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+  end
+
+  def test_that_it_renders_board_with_a_miss_and_a_hit
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.fire_upon("A4")
+    @board.fire_upon("A3")
+
+    assert_equal "  1 2 3 4 \nA . . H M \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+  end
+
+  def test_that_it_renders_board_with_four_misses_and_one_hit_and_a_sunken_cruiser
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.place(@submarine, ["D2", "D3"])
+    @board.fire_upon("A4")
+    @board.fire_upon("A3")
+    @board.fire_upon("B3")
+    @board.fire_upon("A2")
+    @board.fire_upon("A1")
+    @board.fire_upon("C4")
+    @board.fire_upon("D1")
+    @board.fire_upon("D3")
+
+    assert_equal "  1 2 3 4 \nA X X X M \nB . . M . \nC . . . M \nD M . H . \n", @board.render
+  end
+
+  def test_that_it_renders_board_with_four_misses_and_one_hit_and_a_sunken_cruiser_and_shows_rest_of_submarine
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.place(@submarine, ["D2", "D3"])
+    @board.fire_upon("A4")
+    @board.fire_upon("A3")
+    @board.fire_upon("B3")
+    @board.fire_upon("A2")
+    @board.fire_upon("A1")
+    @board.fire_upon("C4")
+    @board.fire_upon("D1")
+    @board.fire_upon("D3")
+
+    assert_equal "  1 2 3 4 \nA X X X M \nB . . M . \nC . . . M \nD M S H . \n", @board.render(true)
+  end
+
 end #end class
