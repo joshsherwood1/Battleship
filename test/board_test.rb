@@ -23,7 +23,8 @@ class BoardTest < Minitest::Test
     assert_equal 16, @board.cells.length
   end
   #coordinate validation
-  def test_it_can_validate_coordinates_on_board
+  def test_method_valid_coordinate? #method 1,passed
+
     assert @board.valid_coordinate?("A1")
     assert @board.valid_coordinate?("D4")
     refute @board.valid_coordinate?("A5")
@@ -62,7 +63,7 @@ class BoardTest < Minitest::Test
 
   end
 
-  def test_if_coordinates_are_consecutive
+  def test_if_coordinates_are_consecutive_submarine #method 3,passed
 
     refute @board.validate_ships_consecutive_for_submarine?(@submarine, ["A1","C1"])
     refute @board.validate_ships_consecutive_for_cruiser?(@cruiser, ["A1", "A2", "A4"])
@@ -79,9 +80,6 @@ class BoardTest < Minitest::Test
     assert_equal true, @board.validate_ships_consecutive_for_submarine?(@submarine, ["B1", "C1"])
     assert_equal true, @board.validate_ships_consecutive_for_cruiser?(@cruiser, ["A1","A2","A3"])
     assert_equal true, @board.validate_ships_consecutive_for_submarine?(@submarine, ["D1","D2"])
-  end
-
-  def test_if_coordinates_are_diagonal
 
     # if a cruiser should be  "A1" "A2" "A3" true
     refute @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
@@ -95,6 +93,11 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.validate_no_overlapping?(@submarine, ["A1", "B1"])
     assert_equal false, @board.validate_no_overlapping?(@submarine, ["A3", "A4"])
     assert_equal true, @board.validate_no_overlapping?(@submarine, ["C1", "D1"])
+
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A3", "A4"])
+    assert_equal true, @board.valid_placement?(@submarine, ["C1", "D1"])
+
   end
 
   def test_we_can_place_ship

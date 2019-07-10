@@ -28,7 +28,7 @@ class ShipTest < Minitest::Test
   end
 
   def test_if_ship_is_sunk
-    refute @ship_1.sunk? #is ship sunk?
+    refute @ship_1.sunk?
   end
 
   def test_ships_hit_sequence
@@ -43,4 +43,4 @@ class ShipTest < Minitest::Test
     assert_equal true, @ship_1.sunk?
   end
 
-end #end_test
+end 
