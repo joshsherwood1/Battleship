@@ -125,6 +125,6 @@ class Game
     @user_ships = [@user_cruiser, @user_submarine]
     @user_guesses = []
 
-    start_up
+    main_menu
   end
 end
