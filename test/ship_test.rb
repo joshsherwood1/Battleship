@@ -12,6 +12,7 @@ class ShipTest < Minitest::Test
 
   def test_if_ship_exists
     @ship_1
+
     assert_instance_of Ship, @ship_1
   end
 
@@ -43,4 +44,4 @@ class ShipTest < Minitest::Test
     assert_equal true, @ship_1.sunk?
   end
 
-end 
+end

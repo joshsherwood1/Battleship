@@ -5,21 +5,17 @@ require './lib/ship'
 
 class Game
   def initialize
-    @ai_board = Board.new #board for ai
-    @user_board  = Board.new #board for human player
+    @ai_board = Board.new
+    @user_board  = Board.new
     @ai = Ai.new(@ai_board, @user_board)
-    @user_cruiser = Ship.new("Cruiser", 3)  #user object starts with two ships
+    @user_cruiser = Ship.new("Cruiser", 3)
     @user_submarine = Ship.new("Submarine", 2)
     @user_ships = [@user_cruiser, @user_submarine]
     @user_guesses = []
-    @winner = nil
   end
 
-
-
-  def start_up #method to call main menu and game setup methods
-    main_menu #welcome message to see if user wants to play or quit
-
+  def start_up
+    main_menu
   end
 
   def main_menu
@@ -46,10 +42,7 @@ class Game
       p "You gave me an invalid input. Please enter play or quit. Restarting game..."
       main_menu
     end
-
-
-
-  end #end main_menu method
+  end
 
   def play_setup
     @ai.place_cruiser_ai(@ai_board)
@@ -61,7 +54,6 @@ class Game
     puts @user_board.render
     puts "\n" * 3
 
-    #will iterate over ships for the user, 1 cruiser and 1 sub
     @user_ships.map do |ship|
       puts "Enter #{ship.length} coordinates for the #{ship.name}."
       user_input = gets.chomp.upcase.split(" ")
@@ -73,41 +65,31 @@ class Game
         puts "\n" * 2
       end
       @user_board.place(ship, user_input)
-      # require 'pry'; binding.pry
     end
 
     puts "=============COMPUTER BOARD============="
     puts @ai_board.render
     puts "=============PLAYER BOARD============="
     puts @user_board.render(true)
-    # require 'pry'; binding.pry
     turn
-  end #end play_setup
+  end
 
   def turn
     puts "\n" * 2
     puts "Please enter a computer board coordinate to fire on"
-    # user_coordinate = gets.chomp.upcase.split(" ").pop
-    # puts "\n" * 2
-    # require 'pry'; binding.pry
-
     ready_to_fire = false
 
     until ready_to_fire
       user_coordinate = gets.chomp.upcase.split(" ").pop
-      # require 'pry'; binding.pry
       if @ai_board.valid_coordinate?(user_coordinate) == false
         puts "You have given an invalid coordinate. Please make sure that the coordinate is one of the 16 possible coordinates on the computer's board. Please try again."
         puts "\n" * 2
-        # require 'pry'; binding.pry
       elsif @user_guesses.include?(user_coordinate) == true
         puts "You have already entered this coordinate. Please try again."
         puts "\n" * 2
       else ready_to_fire = true
-
       end
     end
-
 
     @ai_board.fire_upon(user_coordinate)
     @user_guesses << user_coordinate
@@ -121,13 +103,10 @@ class Game
     puts "\n"
     puts "Your shot on #{user_coordinate} was a #{@ai_board.cells[user_coordinate].result_of_turn}."
     puts "My shot on #{computer_target} was a #{@user_board.cells[computer_target].result_of_turn}."
-    #require 'pry'; binding.pry
+
     turn until @ai.ai_ship_cruiser.sunk? && @ai.ai_ship_submarine.sunk? || @user_cruiser.sunk? && @user_submarine.sunk?
     end_game
-    #should define a winner by certain circumstances, (when all opponent ships are sunk)
-    #before repeating this we need to determine if there is a winner,
-    #if there is a winner at some point break out of the method
-  end #end turn  method
+  end
 
   def end_game
     if @ai.ai_ship_cruiser.sunk? && @ai.ai_ship_submarine.sunk?
@@ -135,39 +114,17 @@ class Game
       puts "******** You won! ********"
     else @user_cruiser.sunk? && @user_submarine.sunk?
       puts "\n" * 3
-      puts "******** I won! ********"
+      puts "******** The computer won! ********"
     end
 
-    @ai_board = Board.new #board for ai
-    @user_board  = Board.new #board for human player
+    @ai_board = Board.new
+    @user_board  = Board.new
     @ai = Ai.new(@ai_board, @user_board)
-    @user_cruiser = Ship.new("Cruiser", 3)  #user object starts with two ships
+    @user_cruiser = Ship.new("Cruiser", 3)
     @user_submarine = Ship.new("Submarine", 2)
     @user_ships = [@user_cruiser, @user_submarine]
     @user_guesses = []
 
-    start_up
-
-    #--TODO: needs to display winner
-    #can show both ai board and user board comparisons
-    #congratulate winner
-    #prompt to exit to main menu
-
-  end #end end_game method
-
-
-
-  # while @ai_board.valid_coordinate?(user_coordinate) == false
-  #   puts "You have given an invalid coordinate. Please make sure that the coordinate is one of the 16 possible coordinates on the computer's board. Please try again."
-  #   user_coordinate = gets.chomp.upcase.split(" ")
-  #   puts "\n" * 2
-  # end
-  #
-  #
-  # while @user_guesses.include?(user_coordinate) == true
-  #   puts "You have already entered this coordinate. Please try again."
-  #   user_coordinate = gets.chomp.upcase.split(" ")
-  #   puts "\n" * 2
-  # end
-
+    main_menu
+  end
 end
