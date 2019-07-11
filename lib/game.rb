@@ -114,7 +114,7 @@ class Game
       puts "******** You won! ********"
     else @user_cruiser.sunk? && @user_submarine.sunk?
       puts "\n" * 3
-      puts "******** I won! ********"
+      puts "******** The computer won! ********"
     end
 
     @ai_board = Board.new
