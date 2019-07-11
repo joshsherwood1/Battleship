@@ -44,6 +44,11 @@ class AiTest < MiniTest::Test
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . M . . \nD . . . . \n", @user_board.render
   end
 
+  def test_that_target_method_works
+    skip
+    assert_equal "Random coordinate", @ai.target
+  end
+
   def test_that_AI_has_fired_on_nine_spots
     skip
     9.times do
